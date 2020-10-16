@@ -1,0 +1,15 @@
+.navbar-toggler {
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    outline: none;
+  }
+
+  &.navTogglerOpen {
+    border-color:rgba(255, 255, 255, 0.5);
+  }
+}
