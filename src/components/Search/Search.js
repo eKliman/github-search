@@ -35,8 +35,8 @@ export const Search = () => {
           onChange={event => setValue(event.target.value)}
         />
         <div className="input-group-append" id="button-addon4">
-          <button className="btn btn-primary" type="bsubmit">Search</button>
-          <button className="btn btn-secondary" type="button" onClick={clear}>Clear results</button>
+          <button className="btn btn-primary" type="submit">Search</button>
+          <button className="btn btn-outline-secondary" type="button" onClick={clear}>Clear results</button>
         </div>
       </div>
     </form>

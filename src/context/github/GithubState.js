@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import axios from 'axios'
-import { CLEAR_USERS, SEARCH_USERS, SET_LOADING } from '../types'
+import { CLEAR_USERS, SEARCH_USERS, SET_LOADING, GET_REPOS, GET_USER, CLEAR_REPOS } from '../types'
 import { GithubContext } from './githubContext'
 import { githubReducer } from './githubReducer'
 
@@ -11,7 +11,9 @@ const withCreds = url => `${url}client_id=${CLIENT_ID}&client_secret=${CLIENT_SE
 export const GithubState = ({children}) => {
   const initialState = {
     users: [],
-    loading: false
+    loading: false,
+    user: {},
+    repos: []
   }
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
@@ -26,15 +28,39 @@ export const GithubState = ({children}) => {
     })
   }
 
+  const getUser = async name => {
+    setLoading()
+    const response = await axios.get(
+      withCreds(`https://api.github.com/users/${name}?`)
+    )
+    dispatch({
+      type: GET_USER,
+      payload: response.data
+    })
+  }
+
+  const getRepos = async name => {
+    setLoading()
+    const response = await axios.get(
+      withCreds(`https://api.github.com/users/${name}/repos?`)
+    )
+    dispatch({
+      type: GET_REPOS,
+      payload: response.data
+    })
+  }
+
   const clearUsers = () => dispatch({type: CLEAR_USERS})
 
   const setLoading = () => dispatch({type: SET_LOADING})
 
-  const {users, loading} = state
+  const clearRepos = () => dispatch({type: CLEAR_REPOS})
+
+  const {users, loading, user, repos} = state
 
   return (
     <GithubContext.Provider value={{
-      search, clearUsers, setLoading, users, loading
+      search, clearUsers, setLoading, users, loading, user, repos, getUser, getRepos, clearRepos
     }}>
       {children}
     </GithubContext.Provider>
