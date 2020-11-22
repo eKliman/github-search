@@ -21,10 +21,10 @@ export const Navbar = () => {
       <div className={`collapse navbar-collapse${navToggle ? ' show' : ''}`}>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink to="/" exact className="nav-link">Главная</NavLink>
+            <NavLink to="/" exact className="nav-link">Main</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/about" className="nav-link">Информация</NavLink>
+            <NavLink to="/about" className="nav-link">Information</NavLink>
           </li>
         </ul>
       </div>
